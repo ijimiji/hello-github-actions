@@ -18,6 +18,11 @@ func TestAdd(t *testing.T) {
 			b:    1,
 			want: 0,
 		},
+		{
+			a:    -1,
+			b:    -1,
+			want: 2,
+		},
 	}
 	for _, tc := range tests {
 		if Add(tc.a, tc.b) != tc.want {
