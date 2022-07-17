@@ -3,25 +3,20 @@ on:
     branches:
       - master
 
-name: Tests without Docker
+name: Tests in Docker
 
 jobs:
   test:
     strategy:
       matrix:
         go-version: [1.18]
-        platform: [ubuntu-latest, windows-latest]
+        platform: [ubuntu-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
-
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go-version }}
-
     - name: Checkout code
       uses: actions/checkout@v2
-    
+    - name: Build
+      run: docker build . -t go-test
     - name: Test
-      run: go test ./...
+      run: docker run go-test go test ./...
